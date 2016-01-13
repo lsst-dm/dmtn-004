@@ -2,7 +2,8 @@
 DMTN-004 Debugging in Docker Containers
 #######################################
 
-Enabling debug options for developers inside docker containers
+Enabling debug options for developers inside Docker containers. This document can be expanded
+with relevant information in the future as more work is done with Docker. 
 
 View this technote at http://dmtn-004.lsst.io or see a preview of the
 current version in `this repo`_
