@@ -50,10 +50,10 @@ A list of minimum tools that would be ideal to have inside a base Qserv image/co
 
 - ``gdb``
 - ``lsof``
-- ``score``
-- ``stack`` 
+- ``gcore``
+- ``pstack`` 
 
-As of this writing, ``gdb`` and ``lsof`` are now included.
+As of this writing, ``gdb``, ``lsof`` and ``gcore`` are included.
 
 Enabling ``gdb``
 ================
