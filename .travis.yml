@@ -1,8 +1,20 @@
 sudo: false
 language: python
-python:
-      - 3.4
-install: "pip install -r requirements.txt"
-script: "make html"
-notifications:
-      email: false
+matrix:
+  include:
+    - python: "3.5"
+      env: LTD_MASON_BUILD=true
+install:
+  - pip install -r requirements.txt
+  - pip install "ltd-mason>=0.2,<0.3"
+script:
+  - sphinx-build -b html -a -n -d _build/doctree . _build/html
+after_success:
+  - ltd-mason-travis --html-dir _build/html
+env:
+  global:
+    - LTD_MASON_BUILD=false  # disable builds in regular text matrix
+    - LTD_MASON_PRODUCT="dmtn-004"
+    # Add AWS and LTD Keeper credentials as encrypted secrets here
+    - secure: "dZB2mC/tEpVSDaIycXr/ZKX4dIgaI7PFh/U4xc3HgMFUOFg6f1ndADG+LSSGpoWcgN7dB4Zm/rKGz7m63AJ7zOrk7Ervl/Tg2ph57o3x5A6aWNGFEe4TDTlu6+YjglqKdBEZhyUzyjEYNdSvVRFHBo9RpCRwI8X27WQacTl1t/NxA3aOAPdGV2XZPMC1GleT8bvvxPuruiCAhbXi3iEt+L58e6GM6yBBRDkZYeRwqlNamNPKmHC71hY9d36vaAQKG6btKydurjt+jkHJ07cJYUAZ4/Zn0iw7veAFWTf9+wXBKTOSiilD3sRZYFcqLCSFVliiAgWJAA0gCbM2VZO8AoXTs04oj68PUEsKd5D3D1TgWni/ny6SkMTw8B5Nb+2cXT39LPKK4bfiFMZFvKkgIV85gZnUcmZnp22hTcz2x3xrKAkzheF1r7Ox6b+W3Ft4c9ym/id99SEDCoVS1fum6ZV/ak7uWh/FSx3nDI9yxeNm/7LvY0SaXnlQ+I95HZiD1/uj+664hQhBrtzCdCIKW8T/JepbUZNT5WpxJPtWKu+r1VGCoGUiX5SkQFp2qJp3JI9t0Udty0+UnoWTKjBLyktP9Hvgd4s6LZzbXztgmVQD8u+cwJi5o15mWJUlH41puwn/r7I+WODywhQwWk4T/A0kNVcUDcgToVgyec3daj4="
+    - secure: "c1LDlz9pN3VCdtx4BurfECkN31r3H+obDdUfYQSunI4821Yfv4CoxYzPtUn+QCJz6YMLHEeYjG1/7vDZktXiMaKqqLE/FKXAOe9AaLWF3/RAOC67cpXtee1zxrQf7bn7ciwjgnJmluxmfK0LQj4fP6gSK1B+7josrVfuXjnQs7YtITcm7jhMt6kX1z7BTd+kRmhL9QuSNlNk2Q7OsnT/6UgExvPFySQ3NJbDSIQQFnGRYt2ZKx0YsPMfTJYXYbnyhBwgj4ZyTUsq1dNvngVM/zcJ5HjTCMhkJr0x/xWAFI+cKLA4714oyU1x/xPlmzzDgE16OJ1ogoRzf7mtY6Nv3IqbkbEDsTsegF/rMWxTjTvYQSLw+9Ps55PZF8R+EmQMM+l5rUDIDAPtYM/FNerw9kp9DLN3p5FXCJIoV+zaKMOBy/at1JdcnerUuem/Uq7X3QBQSVLe8lHapwuWp4XisJL/XLqox2K9K/5yva61IoRWGqcxz8PtwlmuNuE4QcW9Ixi1sOue6JB9AgqCxBfms0B09kjHR9QaMnbLcrlY/Uy5FWpBDKUHAD+V2cGF5jh3dOj1WN+xgp17sgZL09zQ0lUwttfnlf5q+SJjUHe+XsrLd/IoQoxKo6CsCE07yJiHchSBMZZ9qXrp8E6bRQpEHefkkshCAEiSHU/DkQCiXX0="
